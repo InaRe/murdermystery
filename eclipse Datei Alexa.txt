@@ -356,46 +356,46 @@ implements SpeechletV2
 		case 500000: sum = 1000000; break;
 		}
 	}
-	void recognizerUserIntent(String userRequest) {
+		void recognizerUserIntent(String userRequest) {
 		userRequest = userRequest.toLowerCase();
 		
 		// room
-		String leave ="(I want to)? (I would like to)? leave |exit *)";
-		String search ="(I want to)? (I would like to)? search | look ";
-		String whitness ="(I want to)? (I would like to)? ask | talk *";
-		String where = "Where|place (have you been)? when (the crime was committed?)?";
-		String relationship ="(what was your)? (Did you) relationship|like|hate|love (the lord)?";
-		String weird =" (Did something seem)? weird (to you lately)?";
-		String suspicion="(Do you have any) suspicion";
+		String leave ="(i want to |i would like to )?(leave|exit)";
+		String search ="(i want to |i would like to )?(search|look)";
+		String whitness ="(i want to |i would like to )?(ask|talk|question)( to a |to the )?(whitness|victim|butler|maid|gardener|lady|lord|child|cook)?";
+		String where = "where( have you been )?(when the |during the )?(crime was committed|murder was committed|the murder happened|the crime happened)?";
+		String relationship ="(what was your |did you )?(relationship|like|hate|love)( with)?( the lord| the victim)?";
+		String weird ="(did something seem )?weird( to you )?(lately|recently)?";
+		String suspicion="(do you have any )?suspicion( who killed | who commited )?(the lord|the crime)?";
 		String others="(could you imagine)? others committing (such a)? crime";
-		String anythingelse ="(i would like to hear| ask)? anything else";
+		String anythingelse ="(i would like to )?(ask|hear|question)( anything| something)?( else)?";
 		
 		//allgemein
 		String nein = "\bnein\b";
 		String ja = "\bja\b";
-		String start = "(i would like to)? play(please)?";
-		String endgame="(i would like to)?end game (please)?";
+		String start = "(i would like to )?(play|start)(please)?";
+		String endgame="(i would like to )?end(the)? game( please)?";
 		
 		
 		//solving Vorgang
-		String solve= "(I would like to)? solve | answer| solution (the mystery)?";
-		String solvebutler ="(it was the)? (the murderer is the) butler";
-		String solvechild ="(it was the)? (the murderer is the) child";
-		String solvemaid ="(it was the)? (the murderer is the) maid";
-		String solvegardener="(it was the)? (the murderer is the) gardener";
-		String solvecook="(it was the)? (the murderer is the) cook";
-		String solvelady="(it was the)? (the murderer is the) lady";
-		String breakupsolving="(i want to) break up solving";
+		String solve= "(i would like to |i want to )?(solve|answer|solution)( the mystery| the game| the murder)?";
+		String solvebutler ="(it was the |the murderer is the )?butler";
+		String solvechild ="(it was the |the murderer is the )?child";
+		String solvemaid ="(it was the |the murderer is the )?maid";
+		String solvegardener="(it was the |the murderer is the )?gardener";
+		String solvecook="(it was the |the murderer is the )?cook";
+		String solvelady="(it was the |the murderer is the )?lady";
+		String breakupsolving="(i want to )?(break up solving|stop solving)";
 		
 		//watson
-		String watson = "(i would like to)? (ask)? watson(please)?";
-		String askzsmfassung= "(i would like to hear)? (a|the)? summary (please)?";
-		String askvokabeln ="(please)? translate|(what)? means the word|what is|vocabulary (can you tell me)?";
-		String examplequestions="(I would like to hear | listen)? example questions";
+		String watson = "(i would like to |i want to )?(ask )?watson( please)?";
+		String askzsmfassung= "(i would like to hear |i would like to listen )?(a |the )?summary( please)?";
+		String askvokabeln ="";
+		String examplequestions="(i would like to hear | i would like to listen )?(the |to )?example questions";
 		
 		//manual
-		String manual ="(please)? explain| manual";
-		String repeatmanual ="(Can you)? repeat | manual";
+		String manual ="(please )?(explain|manual|tutorial)";
+		String repeatmanual ="(can you |would you )?repeat( the manual| the tutorial| the explaination)";
 		
 		Pattern p1 = Pattern.compile(leave);
 		Matcher m1 = p1.matcher(userRequest);
