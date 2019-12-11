@@ -1,0 +1,40 @@
+	void recognizerUserIntent(String userRequest) {
+		userRequest = userRequest.toLowerCase();
+		
+		// room
+		String leave ="(i want to |i would like to )?(leave|exit)";
+		String search ="(i want to |i would like to )?(search|look)";
+		String whitness ="(i want to |i would like to )?(ask|talk|question)( to a |to the )?(whitness|victim|butler|maid|gardener|lady|lord|child|cook)?";
+		String where = "where( have you been )?(when the |during the )?(crime was committed|murder was committed|the murder happened|the crime happened)?";
+		String relationship ="(what was your |did you )?(relationship|like|hate|love)( with)?( the lord| the victim)?";
+		String weird ="(did something seem )?weird( to you )?(lately|recently)?";
+		String suspicion="(do you have any )?suspicion( who killed | who commited )?(the lord|the crime)?";
+		String others="(could you imagine)? others committing (such a)? crime";
+		String anythingelse ="(i would like to )?(ask|hear|question)( anything| something)?( else)?";
+		
+		//allgemein
+		String nein = "\bnein\b";
+		String ja = "\bja\b";
+		String start = "(i would like to )?(play|start)(please)?";
+		String endgame="(i would like to )?end(the)? game( please)?";
+		
+		
+		//solving Vorgang
+		String solve= "(i would like to |i want to )?(solve|answer|solution)( the mystery| the game| the murder)?";
+		String solvebutler ="(it was the |the murderer is the )?butler";
+		String solvechild ="(it was the |the murderer is the )?child";
+		String solvemaid ="(it was the |the murderer is the )?maid";
+		String solvegardener="(it was the |the murderer is the )?gardener";
+		String solvecook="(it was the |the murderer is the )?cook";
+		String solvelady="(it was the |the murderer is the )?lady";
+		String breakupsolving="(i want to )?(break up solving|stop solving)";
+		
+		//watson
+		String watson = "(i would like to |i want to )?(ask )?watson( please)?";
+		String askzsmfassung= "(i would like to hear |i would like to listen )?(a |the )?summary( please)?";
+		String askvokabeln ="";
+		String examplequestions="(i would like to hear | i would like to listen )?(the |to )?example questions";
+		
+		//manual
+		String manual ="(please )?(explain|manual|tutorial)";
+		String repeatmanual ="(can you |would you )?repeat( the manual| the tutorial| the explaination)";
