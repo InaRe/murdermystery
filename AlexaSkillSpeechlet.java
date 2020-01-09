@@ -39,6 +39,7 @@ implements SpeechletV2
 	public static String aktuellerraum = " ";
 	public static enum zeugen {butler, cat, child, cook, gardener, lady, lord, maid}
 	public static String aktuellerzeuge= " ";
+	public static String text="<speak>"; //dies ist die Variable, die von speak gefüllt und dann durch send() gesendet wird
 	//Zustand
 	public static int zeugenzeit=1;
 	public static int raumzeit=1;
@@ -54,19 +55,20 @@ implements SpeechletV2
 	public static String frageaufruf="what do you want to ask this witness? If you some need example questions, ask me.";
 	public static String exampleq = "The main things you need to find out to solve the mystery successfully are where the people have been when the crime has happened, if they have any suspicion who could have done such terrible things, if something did seem weird to them lately. Furthermore, you should ask the persons about their relationships with the deceased Lord and maybe if they knew some things about the other persons living there and if they could have done the crime.Do you want to listen to a few example questions and if so, which?";
 	//Einleitung
-	public static String einleitung1 = "It was a dark and stormy night, when you and your assistant Watson were invited to Furbish Manor. The rain hammered on the roof of the cab you were using to get there. You stand in front of the dark, iron gate and wait that somebody comes to let you in. The wind is cold and you have to wait a moment in this unpleasant place. Watson looks at you: “Do you remember how we normaly solve a case, or should i explain to you how we do this?";
+	public static String einleitung1 = "It was a dark and stormy night, when you and your assistant Watson were invited to Furbish Manor. The rain hammered on the roof of the cab you were using to get there. You stand in front of the dark iron gate and wait that somebody comes to let you in. The wind is cold and you have to wait a moment in this unpleasant place. Watson looks at you" ;
+	public static String tutorialfrage="Do you remember how we normaly solve a case? Yes or No?";
 	public static String einleitung2 = "After a few minutes finally somebody opens the gate to let you in. Together you walk the street up the hill until you come to the entry. The door opens and you enter.";
 	//Tutorial
-	public static String tutorial1 = "Its really not that complicated: We walk around a house and ask the people we meet the questions we want to ask them. They answer. Most often they have seen something or have not seen something in a while. You should ask them for their alibis and who can prove them. Maybe somebody is lying, so you should listen carefully. Did you understand that?";
-	public static String tutorial2 = "If we enter the room you will get a general description of what is in it. You can look at some things, if you want to learn more about them. Should i repeat what i just said?";
-	public static String tutorial3 = "If you forget anything that you have found you can always ask me. Just say “Watson” and i will be there. I can give you a short summary and some more tipps. Did you understand me? The rain is so loud, i can understand if you say, that you did not.";
+	public static String tutorial1 = "Its really not that complicated: We walk around a house and ask the people we meet the questions we want to ask them. They answer. Most often they have seen something or have not seen something in a while. You should ask them for their alibis and who can prove them. Maybe somebody is lying, so you should listen carefully. Did you understand that? Yes or no?";
+	public static String tutorial2 = "If we enter the room you will get a general description of what is in it. You can look at some things, if you want to learn more about them. Should i repeat what i just said? Yes or no?";
+	public static String tutorial3 = "If you forget anything that you have found you can always ask me. Just say “Watson” and i will be there. I can give you a short summary and some more tipps. Did you understand me?";
 
 
 	//Alles über Räume
 	//entryhall
 	static boolean entrencehallbesucht = false;
 	static String entrencehall []=
-		/*beschreibung [0]*/	{"The Entrance Hall is dimly lit and feels calm and empty. The eerie silence is only disturbed by the echo of your steps on the cold marble floor and the big doors closing behind you. You see a grande staircase leading up to several doors, a door to the lounge, the kitchen, the bedchamber, the library, the garden and the servants wing. Next to the staircase are two knights armor on either side. A butler is standing next to one of the doors.",
+		/*beschreibung [0]*/	{"The Entrance Hall is dimly lit and feels calm and empty. The eerie silence is only disturbed by the echo of your steps on the cold marble floor and the big doors closing behind you. You see a grande staircase leading up to several doors, a door to the lounge, the kitchen, the bedchamber, the library, the garden and the servants wing. Next to the staircase are two knights armor on each side. A butler is standing next to one of the doors. What do you want to do?",
 				/*wwyd [1]*/			"What do you want to do in the entrance hall? Would you like to speak to the witness, search the room or leave the room?",
 				/*detail [2]*/			"You take a closer look around. Nothing seems unusual to you on the first glance. Everything is perfectly cleaned and there are no traces of an intruder. The murderer must be someone within the house. Then you see it. One of the knights armors positioned next to the staircase is missing it's sword, which could be a murder weapon.",
 				/*whroom [3]*/			"Where do you want to go: The garden? The kitchen? The lounge? The servantwing? The Servantbedroom? The bedchamber or the library?",
@@ -156,7 +158,7 @@ implements SpeechletV2
 	public static String cookbeschr = "The cook is probably the friendliest and most loving person in the whole house. She cares for everyone and makes sure everyone gets enough to eat. She also stands for the mistakes of others. She had a very good relationship with the Lord, although the mother hates this.";
 	public static String cookaussagen[]=
 			//where[0],relation[1],weird[2],susp[3],others[4]
-		/*where[0]*/	{"Right here Sir. The Lady wanted to have an extravagant supper. I was cooking, baking and preparing all day for it. I’m still not ready Sir.",
+			/*where[0]*/	{"Right here Sir. The Lady wanted to have an extravagant supper. I was cooking, baking and preparing all day for it. I’m still not ready Sir.",
 				/*relation[1]*/ "Didn’t really have any. I’m in the kitchen or in the servants wing most of the time. I don’t have enough time for chitchat most of the time. And they treat us as what we are, servants.",
 				/*weird[2]*/    "Not that i noticed of. I am focussed on my craft most of the time though.",
 				/*susp[3]*/     "Not that i can think of. The Lord payed and treated us well. We are lucky to be here Sir.",
@@ -202,57 +204,92 @@ implements SpeechletV2
 	/*others[4]*/	"I only know me and James were polishing… The cook was cooking all day, for sure. Otherwise I don’t know what everyone does the whole day, why should I?"};
 	//zusammenfassung von maid
 	public static String[] maidzsmf= {"","","","",""};	
-
+	
+	
 	//yesno():
 	public static boolean yesno(String UserRequest) {
 		logger.info("yesno wurde gestartet");
-		String yes = "yes";
-		String no = "no";
+		String yes = "*?yes*?";
+		String no = "*?no*?";
 		Pattern p1 = Pattern.compile(yes);
 		Matcher m1 = p1.matcher(UserRequest);
 		Pattern p2 = Pattern.compile(no);
 		Matcher m2 = p2.matcher(UserRequest);
+		logger.info(UserRequest);
+		logger.info("es wurde gematcht");
 		if (m1.find()) {
+			logger.info("yes wurde erkannt");
 			ouruserintent=userintent.yes;
+			logger.info("our userintent wurde zu yes geändert");
 			return true;} 
 		else if (m2.find()) {
+			logger.info("no wurde erkannt");
 			ouruserintent=userintent.no;
+			logger.info("our userintent wurde zu no geändert");
 			return false;} 
 		logger.info("Es gab einen fehler bei Yesno");
 		return true;}	
 
-
-	//Funktionen
-
-	//speak	
-	public static SpeechletResponse speak(String text, String name) {//Diese Funktion soll eigentlich sachen direkt aussprechen und nicht in anderer Stimme zurückgeben!
+	//send()
+	public static SpeechletResponse sende() {
+		logger.info("send() wurde gestartet");
+		SsmlOutputSpeech speech = new SsmlOutputSpeech();
+		text=text+"</speak>";
+		logger.info("text ist aktuell "+text);
+		speech.setSsml(text);
+		text="<speak>";
+		// reprompt after 8 seconds
+		logger.info("nach switch");
+		SsmlOutputSpeech repromptSpeech = new SsmlOutputSpeech();
+		logger.info("1");
+		repromptSpeech.setSsml("<speak><emphasis level=\"strong\">Hey!</emphasis> Bist du noch da?</speak>");
+		logger.info("2");
+		Reprompt rep = new Reprompt();
+		logger.info("3");
+		rep.setOutputSpeech(repromptSpeech);
+		logger.info("4");
+		return SpeechletResponse.newAskResponse(speech, rep);
+		
+	};
+	//speak	verändert den String text, welcher von sende() zu einer ssml verarbeitet und versendet wird. So können cerschiedene Leute hintereinander sprechen
+	public static void speak(String sentence, String name) {
 		SsmlOutputSpeech speech = new SsmlOutputSpeech();
 		logger.info("speak wurde gestartet");
 		switch(name){ 
 		case "narrator": 
-			speech.setSsml("<speak><voice name= \"Matthew\"><lang xml:\"en-US\"> "+ text + "</lang></voice></speak>");
-			break; 
-		case "watson": 
-			speech.setSsml("<speak><voice name=\"Brian\"><lang xml:\"en-GB\"> "+ text + "</lang></voice></speak>");
+			logger.info("narrator");
+			//speech.setSsml("<speak>" + text + "</speak>");
+			//speech.setSsml("<speak><voice name=\"Matthew\"><lang xml:\"en-US\"> "+ text + "</lang></voice></speak>");
+			text=text+"<voice name=\"Matthew\"> "+ sentence + "</voice>";
+			//speech.setSsml("<speak><lang xml:\"en-US\"> "+ text + "</lang></speak>");
+			//speech.setSsml("<speak><voice name=\"Matthew\"><lang xml:\"en-US\"> "+ text + "</lang></voice></speak>");
+			logger.info("nach sprechen");
+		/*case "watson": 
+			logger.info("watson");
+			text=text+"<voice name=\"Brian\"> "+ sentence + "</voice>";
 			break; 
 		case "maid": 
-			speech.setSsml("<speak><voice name= \"Kimberly\"><lang xml:\"en-US\"> "+ text + "</lang></voice></speak>");
+			text=text+"<speak><voice name= \"Kimberly\"><lang xml:\"en-US\"> "+ sentence + "</lang></voice></speak>";
 			break; 
 		case "gardener": 
-			speech.setSsml("<speak><voice name= \"Russel\"><lang xml:\"en-AU\">" + text + "/lang></voice></speak>");
+			text=text+"<speak><voice name= \"Russel\"><lang xml:\"en-AU\">" + sentence + "/lang></voice></speak>";
 			break; 
 		case "butler": 
-			speech.setSsml("<speak><voice name= \"Geraint\"><lang xml:\"en-GB-WLS\">" + text + "</lang></voice></speak>");
+			text=text+"<speak><voice name= \"Joey\"><lang xml:\"en-US\">" + sentence + "</lang></voice></speak>";
 			break;
 		case "cook": 
-			speech.setSsml("<speak><voice name= \"Kendra\"><lang xml:\"en-US\">" + text + "</lang></voice></speak>");
+			text=text+"<speak><voice name= \"Kendra\"><lang xml:\"en-US\">" + sentence + "</lang></voice></speak>";
 			break;
 		case "child": 
-			speech.setSsml("<speak><voice name= \"Justin\"><lang xml:\"en-US\">" + text + "</lang></voice></speak>");
+			text=text+"<speak><voice name= \"Justin\"><lang xml:\"en-US\">" + sentence + "</lang></voice></speak>";
 			break;
 		case "lady": 
-			speech.setSsml("<speak><voice name= \"Amy\"><lang xml:\"en-GB\">" + text + "</lang></voice></speak>");}
-		return SpeechletResponse.newTellResponse(speech);
+			text=text+"<speak><voice name= \"Amy\"><lang xml:\"en-GB\">" + sentence + "</lang></voice></speak>";
+			break;
+		default:
+			text=text+"<speak><voice name= \"Matthew\"><lang xml:\"en-US\"> "+ sentence + "</lang></voice></speak>";*/
+		}
+		return;
 	}
 
 	//pardon() ist eine funktion, falls etwas nicht verstanden wurde
@@ -447,9 +484,8 @@ implements SpeechletV2
 				//Hier müssen noch die Anderen Zeugen hin
 
 			}
-
-			switch(zeit) {
 			logger.info("funktion zeit");
+			switch(zeit){
 			case 1://Zeuge wurde beschrieben und es wurde gerade gefragt, welche Frage gestellt werden soll
 				int FRAGE=wasfragst(userrequest);//Hier muss noch eine Aussage rein
 				//where[0],relation[1],weird[2],susp[3],others[4]
@@ -482,6 +518,7 @@ implements SpeechletV2
 					raumzeit=1;
 					zeugenzeit=1;
 					speak("Ok, maybe we find something else in this room.","watson");
+					//speak(room[1], watson) //erneute beschreibung der Tätigkeiten im Raum
 					return;
 				case 7:
 					//solve();//vielleicht nur eine veränderung in der solvezeit???
@@ -670,7 +707,12 @@ implements SpeechletV2
 		public SpeechletResponse onLaunch(SpeechletRequestEnvelope<LaunchRequest> requestEnvelope)
 		{
 			logger.info("OnLaunch wurde gestartet");
-			return askUserResponse ("hallo");
+			//SpeechletResponse s=speak("hallo", "narrator");
+			//logger.info("wieder on launch");
+			speak(einleitung1, "narrator");
+			//speak(tutorialfrage, "watson");
+			return sende();
+
 			}
 
 
