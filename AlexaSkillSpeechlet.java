@@ -938,7 +938,8 @@ implements SpeechletV2
 					Matcher m4 = p4.matcher(UserRequest);
 					if (m4.find()) {
 						logger.info("Der User möchte in diesen Raum gehen: "+raumregex[i]);
-						return i;} 
+						return i;
+					}
 				}
 				logger.info("RecUI:case 4: Kein RecState wurde erkannt: "+UserRequest);
 				return 1400;
@@ -1101,13 +1102,13 @@ implements SpeechletV2
 				int wastun=RecUI(userrequest,1);
 				logger.info("raum("+raum+","+zeit+"):"+"wähle aktion");
 				switch (wastun) {
-				case 1:
+				case 1://watson
 					logger.info("raum("+raum+","+zeit+"):"+"wastun=1");
 					//watson();
 					speak("Ich bin aktuell noch nicht verfügbar","watson");
 					speak(room[1], "narrator");
 					break;
-				case 2:
+				case 2://search room
 					logger.info("raum("+raum+","+zeit+"):"+"wastun=2");
 					logger.info(raum + " wurde genauer untersucht");
 					speak(room[2], "narrator");
@@ -1172,7 +1173,7 @@ implements SpeechletV2
 					}
 					
 					break;
-				case 4:
+				case 4://leave
 					logger.info("raum("+raum+","+zeit+"):"+"wastun=4");
 					logger.info(raum + " wurde verlassen");
 					speak(room[3],"watson");
@@ -1187,11 +1188,127 @@ implements SpeechletV2
 				}
 				break;
 			case 2://raum verlassen
-			logger.info("raum("+raum+","+zeit+"):"+"Zeit=2");
-			aktuellerraum=raumarray[RecUI(userrequest,5)];
-			raum(aktuellerraum, 1);
-			
-			
+				logger.info("raum("+raum+","+zeit+"):"+"Zeit=2");
+				int wunschort=RecUI(userrequest,4);
+				if  (wunschort== 1400) {
+					speak(room[3],"watson");
+				}
+				else {
+					aktuellerraum=raumarray[wunschort];
+					raumzeit=1;
+					//speak(room[1],"watson");
+					switch (aktuellerraum) {
+					case "library":
+						logger.info("raum("+raum+","+zeit+"):"+"library");
+						room=library;
+						if (librarybesucht==false) {
+							speak(library[0],"narrator");
+							librarybesucht=true;
+							logger.info(raum + " wurde beschrieben");
+							speak(room[1], "narrator");}
+						/*else {
+							speak("You enter the "+aktuellerraum, "narrator");
+							}*/	
+						break;
+						
+					case "lounge":	
+						logger.info("raum("+raum+","+zeit+"):"+"lounge");
+						room=lounge;
+						if (loungebesucht==false) {
+							speak(lounge[0],"narrator");
+							loungebesucht=true;
+							logger.info(raum + " wurde beschrieben");
+							speak(room[1], "narrator");
+						}
+						/*else {
+							speak("You enter the "+aktuellerraum, "narrator");
+							}*/		
+						break;
+					case "garden":	
+						logger.info("raum("+raum+","+zeit+"):"+"garden");
+						room=garden;
+						if (gardenbesucht==false) {
+							speak(room[0],"narrator");
+							gardenbesucht=true;
+							logger.info(raum + " wurde beschrieben");
+							speak(room[1], "narrator");
+							}
+						/*else {
+							speak("You enter the "+aktuellerraum, "narrator");
+							}*/		
+						break;
+					case "servantwing":	
+						logger.info("raum("+raum+","+zeit+"):"+"servantwing");
+						room=servantwing;
+						if (servantwingbesucht==false) {
+							speak(room[0],"narrator");
+							servantwingbesucht=true;
+							logger.info(raum + " wurde beschrieben");
+							speak(room[1], "narrator");
+							}
+						/*else {
+							speak("You enter the "+aktuellerraum, "narrator");
+							}*/		
+						break;
+
+					case "servantbedroom":	
+						room=servantbedroom;
+						logger.info("raum("+raum+","+zeit+"):"+"servantbedroom");
+						if (servantbedroombesucht==false) {
+							speak(room[0],"narrator");
+							servantbedroombesucht=true;
+							logger.info(raum + " wurde beschrieben");
+							speak(room[1], "narrator");
+							}
+						/*else {
+							speak("You enter the "+aktuellerraum, "narrator");
+							}*/		
+						break;
+
+					case "bedchamber":	
+						logger.info("raum("+raum+","+zeit+"):"+"bedchamber");
+						room=bedchamber;
+						if (bedchamberbesucht==false) {
+							speak(room[0],"narrator");
+							bedchamberbesucht=true;
+							logger.info(raum + " wurde beschrieben");
+							speak(room[1], "narrator");
+							}
+						/*else {
+							speak("You enter the "+aktuellerraum, "narrator");
+							}*/		
+						break;
+
+					case "kitchen":	
+						logger.info("raum("+raum+","+zeit+"):"+"kitchen");
+						room=kitchen;
+						if (kitchenbesucht==false) {
+							speak(room[0],"narrator");
+							kitchenbesucht=true;
+							logger.info(raum + " wurde beschrieben");
+							speak(room[1], "narrator");
+							}
+						/*else {
+							speak("You enter the "+aktuellerraum, "narrator");
+							}*/		
+						break;
+
+					case "entrancehall":	
+						logger.info("raum("+raum+","+zeit+"):"+"entrancehall");
+						room=entrancehall;
+						if (entrancehallbesucht==false) {
+							speak(room[0],"narrator");
+							entrancehallbesucht=true;
+							logger.info(raum + " wurde beschrieben");
+							speak(room[1], "narrator");
+							}
+						/*else {
+							speak("You enter the "+aktuellerraum, "narrator");
+							}*/		
+						break;
+					}
+				}
+				break;
 			}
 
 			return;}	
