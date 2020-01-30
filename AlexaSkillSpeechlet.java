@@ -35,11 +35,11 @@ implements SpeechletV2
 {
 //TODO Fehler Abfangen
 //GLOBALE VARIABLEN__________________________________________________________________________________________________________________________________	
-	//Nˆtiges----------------------------------------------------------------------------------------------------------------------------------------
+	//N√∂tiges----------------------------------------------------------------------------------------------------------------------------------------
 			static Logger logger = LoggerFactory.getLogger(AlexaSkillSpeechlet.class);
-			public static String text="<speak>"; //dies ist die Variable, die von speak gef¸llt und dann durch send() gesendet wird
+			public static String text="<speak>"; //dies ist die Variable, die von speak gef√ºllt und dann durch send() gesendet wird
 			public static String murderer="gardener";
-	//Zust‰nde---------------------------------------------------------------------------------------------------------------------------------------
+	//Zust√§nde---------------------------------------------------------------------------------------------------------------------------------------
 			public static String aktuellerzeuge= " ";
 			public static String aktuellerraum = " ";
 			public static String room[]=new String[4];
@@ -61,18 +61,18 @@ implements SpeechletV2
 				public static String userrequest;	
 
 	//Texte------------------------------------------------------------------------------------------------------------------------------------------
-				public static String frageaufruf="what do you want to ask this witness? If you need some example questions, ask me.";
-				public static String exampleq = "The main things you need to find out to solve the mystery successfully are where the people have been when the crime has happened, if they have any suspicion who could have done such terrible things or if something did seem weird to them lately. Furthermore, you should ask the persons about their relationships with the deceased Lord and maybe if they knew some things about the other persons living there and if they could have done the crime.";//Die Examplequestions m¸ssen rein
+				public static String frageaufruf="What do you want to ask this witness? If you need some example questions, ask me.";
+				public static String exampleq = "You can ask the whitnesses the following questions: Where have you been during the murder? What was your relationship with the lord? Did something seem weird to you lately? Do you have any idea who killed the lord? Could you imagine others committing such a crime?. You can leave the conversations by simply saying Goodbye.";//Die Examplequestions m√ºssen rein
 		//Einleitung
-				public static String einleitung1 = "It was a dark and stormy night, when you and your assistant Watson were invited to Furbish Manor. The rain hammered on the roof of the cab you were using to get there. You stand in front of the dark iron gate and wait that somebody comes to let you in. The wind is cold and you have to wait a moment in this unpleasant place. Watson looks at you" ;
+				public static String einleitung1 = "It was a dark and stormy night, when a horrific murder was commited and you and your assistant Watson were invited to Furbish Manor. The rain hammered on the roof of the cab you were using to get there. You stand in front of the dark iron gate and wait that somebody comes to let you in. The wind is cold and you have to wait a moment in this unpleasant place. Watson looks at you" ;
 				public static String tutorialfrage="Do you remember how we normaly solve a case? Yes or No?";
-				public static String einleitung2 = "After a few minutes finally somebody opens the gate to let you in. Together you walk the street up the hill until you come to the entry. The door opens and you enter.";
+				public static String einleitung2 = "After a few minutes finally somebody opens the gate to let you in. Together you walk up the path to the main doorway of the estate. The ornate wooden door creeks as it opens into the entrancehall and you step in";
 		//Tutorial
 				public static String tutorial1 = "Its really not that complicated: We walk around a house and ask the people we meet the questions we want to ask them. They answer. Most often they have seen something or have not seen something in a while. You should ask them for their alibis and who can prove them. Maybe somebody is lying, so you should listen carefully. Did you understand that? Yes or no?";
 				public static String tutorial2 = "If we enter the room you will get a general description of what is in it. You can look at some things, if you want to learn more about them. Should i repeat what i just said? Yes or no?";
-				public static String tutorial3 = "If you forget anything that you have found you can always ask me. Just say ìWatsonî and i will be there. I can give you a short summary and some more tipps. Did you understand me?";
+				public static String tutorial3 = "If you forget anything that you have found you can always ask me. Just say ‚ÄúWatson‚Äù and i will be there. I can give you a short summary and some more tipps. Did you understand me?";
 			
-		//Alles ¸ber R‰ume
+		//Alles √ºber R√§ume
 				public static String[] raumregex= {"((entrancehall)|(entrencehall)|(entry)|(knights armor)|(butler))","(library|cat)","((garden(er)?))","(servantbedroom|maid)","(kitchen|cook)","(servantwing|child)","(bedchamber|lady)","(lounge|deceased|lord)"};
 				public static String[] raumarray= {"entrancehall","library","garden","servantbedroom","kitchen", "servantwing", "bedchamber","lounge"};
 				//entryhall
@@ -96,7 +96,7 @@ implements SpeechletV2
 					public static String garden []=
 								/*beschreibung [0]*/	{"You enter the garden and can hardly believe your eyes. A large weeping willow surrounded by the most beautiful flowerbeds you have ever seen is in the center of the large field. An old broken bench looks grim underneath the willow. A small pond next to the tree reflects the silver moonlight. Fruit trees frame a narrow path, which you follow down to a greenhouse. Bent over a vegetable patch, you see a gardener, an old man with soft friendly features. When he notices you, he turns around and smiles encouragingly at you.",
 								/*wwyd [1]*/			"What do you want to do in the Garden? Would you like to speak to the witness, search the garden or leave the garden?",
-								/*detail [2]*/			"You see that the Gardner's forehead is covered in sweat, but you aren't sure whether it's from the hard work or he is hiding something. ",
+								/*detail [2]*/			"You see that the gardener's forehead is covered in sweat. You don't know whether it's from the hard work or whether he is hiding something. ",
 								/*whroom [3]*/			"Where do you want to go: The entrancehall? The kitchen? The lounge? The servantwing? The Servantbedroom? The bedchamber or the library?",
 								/*zeuge [4]*/			"gardener"};
 				//servantbedroom	
@@ -134,23 +134,23 @@ implements SpeechletV2
 				//lounge	
 					public static boolean loungebesucht = false;
 					public static String lounge []= 
-								/*beschreibung [0]*/	{"As you enter the scene of the crime thunder disturbs the gloomy night. You see a fireplace which fire has gone out a long time ago. Two leather armchairs and a small table opposite of the fireplace seem to have been pushed aside. Expensive liquor that once was on the table now was spilled all over the carpet. The body of the deceased is laying behind the armchair, as if he tried to create distance between him and his murderer. His eyes are still wide-open in fear. His elegant clothing is now drenched in his own blood coming out of a single stab wound in the middle of his chest. ",
+								/*beschreibung [0]*/	{"As you enter the scene of the crime thunder disturbs the gloomy night. You see a fireplace which fire had gone out a long time ago. Two leather armchairs and a small table opposite of the fireplace seem to have been pushed aside. Expensive liquor that once was on the table now was spilled all over the carpet. The body of the deceased is laying behind the armchair, as if he tried to create distance between him and his murderer. His eyes are still wide-open in fear. His elegant clothing is now drenched in his own blood coming out of a single stab wound in the middle of his chest. ",
 								/*wwyd [1]*/			"What do you want to do in the Lounge? Would you like to search the room or leave the room?",
 								/*detail [2]*/			"When you take a closer look you see that one corner of the carpet is folded under itself. Someone could easily trip over it. ",
 								/*whroom [3]*/			"Where do you want to go: The kitchen? The garden? The entrancehall? The servants wing? The Servants bedroom? The bedchamber or the library?",
 								/*zeuge [4]*/			"lord"};
 			
-		//Alles ¸ber Zeugen
+		//Alles √ºber Zeugen
 				//butler
 					public static boolean butlerbefragt=false;
 					public static String jamesbeschr = "The Butler of the house is a grim looking lanky man with pronounced eyebrows and a hooked nose reaching almost down to his lips. He is wearing a worn down, but meticulously cleaned suit.";
 					public static String butleraussagen[]=
 							//where[0],relation[1],weird[2],susp[3],others[4]
-								/*where[0]*/	{"Polishing silver cutlery with the Maid. Why are you asking? Do I seem like a murderer? I have been working here since a long, long time. Iím becoming older, donít want to risk or lose my job, understand detective?",
-								/*relation[1]*/ "Young ën stupid man, you know. Had a lot to learn, lately. We Didnít really have a connection. I was just doing my job here, man.",
-								/*weird[2]*/    "A lot of things seem weird these days, donít  you think? The Old Lady has acted strangelyÖ Bought a lot of stuff. Go ask her and leave me alone.",
-								/*susp[3]*/     "Detective, Iím not gonna tell you the secrets of this house. Never have, never will.",
-								/*others[4]*/   "I was with the maid. Donít know anything about the others, mind my own business, you know."};
+								/*where[0]*/	{"Polishing silver cutlery with the Maid. Why are you asking? Do I seem like a murderer? I have been working here since a long, long time. I‚Äôm becoming older, don‚Äôt want to risk or lose my job, understand detective?",
+								/*relation[1]*/ "Young ‚Äòn stupid man, you know. Had a lot to learn, lately. We Didn‚Äôt really have a connection. I was just doing my job here, man.",
+								/*weird[2]*/    "A lot of things seem weird these days, don‚Äôt  you think? The Old Lady has acted strangely‚Ä¶ Bought a lot of stuff. Go ask her and leave me alone.",
+								/*susp[3]*/     "Detective, I‚Äôm not gonna tell you the secrets of this house. Never have, never will.",
+								/*others[4]*/   "I was with the maid. Don‚Äôt know anything about the others, mind my own business, you know."};
 					//Zusammenfassungen von  butler
 					public static boolean[] butlerzsmf= {false,false,false,false,false};
 					public static String[] butlerzsmfaussagen= {"The bulter claimed that he has been polishing silver when the murder happened.", "The bulter claimed not to have any relationship with the lord.", 
@@ -176,11 +176,11 @@ implements SpeechletV2
 					public static String cookbeschr = "The cook is probably the friendliest and most loving person in the whole house. She cares for everyone and makes sure everyone gets enough to eat. She also stands for the mistakes of others. She had a very good relationship with the Lord, although the mother hates this. What do you want to ask";
 					public static String cookaussagen[]=
 							//where[0],relation[1],weird[2],susp[3],others[4]
-							/*where[0]*/	{"Right here Sir. The Lady wanted to have an extravagant supper. I was cooking, baking and preparing all day for it. Iím still not ready Sir.",
-							/*relation[1]*/ "Didnít really have any. Iím in the kitchen or in the servants wing most of the time. I donít have enough time for chitchat most of the time. And they treat us as what we are, servants.",
+							/*where[0]*/	{"Right here Sir. The Lady wanted to have an extravagant supper. I was cooking, baking and preparing all day for it. I‚Äôm still not ready Sir.",
+							/*relation[1]*/ "Didn‚Äôt really have any. I‚Äôm in the kitchen or in the servants wing most of the time. I don‚Äôt have enough time for chitchat most of the time. And they treat us as what we are, servants.",
 							/*weird[2]*/    "Not that i noticed of. I am focussed on my craft most of the time though.",
 							/*susp[3]*/     "Not that i can think of. The Lord payed and treated us well. We are lucky to be here Sir.",
-							/*others[4]*/   "I know that my boy was playing in the servant wings. Iíve heard him pretending to be the prince."};
+							/*others[4]*/   "I know that my boy was playing in the servant wings. I‚Äôve heard him pretending to be the prince."};
 					// Zusammenfassungen von cook
 					public static boolean[] cookzsmf= {false,false,false,false,false};
 					public static String[] cookzsmfaussagen = {"","","","",""};
@@ -190,11 +190,11 @@ implements SpeechletV2
 					public static String gardenerbeschr = "The gardener is a very simple-minded man. He seems to have been doing his job well for many years. He is said to have been in love with the lady many years ago. Well, in any case he loves his daughter, the maid, more than anything and would probably do anything for her. What do you want to ask?";
 					public static String gardeneraussagen[]=
 							//where[0],relation[1],weird[2],susp[3],others[4]
-							/*where[0]*/	{"I was talking to my daughter, she is the wonderful maid thatís working for the Lord himself. Marvelous girl, if you ask me. Only the best in her mind for everyone. I think she deserved better than being a  maid. I told her to go to the East of the Country and get a better life. But she did not agree with me. Iím sorry, that hasnít anything to do with your question. ",
-							/*relation[1]*/ "Iím only the Gardener, working so that my daughter could have a better life. Iím a gentleman in contrast to the lord, but thatís on a different page. We had a decent relationship. Not to close, but decent.",
-							/*weird[2]*/    "Not at all! Itís like it has ever been around here. But if you want to ask a strange man around here, go to the Butler, James. Ask him the questions...Itís such a tragedy what happened. I hope you find the right man, detective.",
-							/*susp[3]*/     "James didnít really like him, but he hasnít had enemies, so far. I guess everyone liked him but no one knew him for real.",
-							/*others[4]*/   "I know my daughter was with me, canít tell you more. I am sorry for that detective."};
+							/*where[0]*/	{"I was talking to my daughter, she is the wonderful maid that‚Äôs working for the Lord himself. Marvelous girl, if you ask me. Only the best in her mind for everyone. I think she deserved better than being a  maid. I told her to go to the East of the Country and get a better life. But she did not agree with me. I‚Äôm sorry, that hasn‚Äôt anything to do with your question. ",
+							/*relation[1]*/ "I‚Äôm only the Gardener, working so that my daughter could have a better life. I‚Äôm a gentleman in contrast to the lord, but that‚Äôs on a different page. We had a decent relationship. Not to close, but decent.",
+							/*weird[2]*/    "Not at all! It‚Äôs like it has ever been around here. But if you want to ask a strange man around here, go to the Butler, James. Ask him the questions...It‚Äôs such a tragedy what happened. I hope you find the right man, detective.",
+							/*susp[3]*/     "James didn‚Äôt really like him, but he hasn‚Äôt had enemies, so far. I guess everyone liked him but no one knew him for real.",
+							/*others[4]*/   "I know my daughter was with me, can‚Äôt tell you more. I am sorry for that detective."};
 					//zusammenfassung von gardener
 					public static boolean[] gardenerzsmf= {false,false,false,false,false};
 					public static String[] gardenerzsmfaussagen = {"","","","",""};
@@ -205,10 +205,10 @@ implements SpeechletV2
 					public static String ladyaussagen[]=
 							//where[0],relation[1],weird[2],susp[3],others[4]
 								/*where[0]*/	{"I was in the garden, having a walk and relaxing beneath the willow. I had wanted to try out my new walking dress.",
-								/*relation[1]*/ "He was my only child. My baby. His father, my deceased husband, poisoned him with his thoughts of equality. Wanted to be one of the commoners. Said that nobody should have servants. I hoped that he would come to reason. He shouldíve listened to me! Commoners will bite of your arm if you offer them a hand. Now he is dead... Well at least I can use his life insurance money to remarry and bury my sorrow in diamonds.",
-								/*weird[2]*/    "The shipment of the dresses i bought last week havenít arrived yet. I need to write them a stern letter if they donít arrive soon.",
+								/*relation[1]*/ "He was my only child. My baby. His father, my deceased husband, poisoned him with his thoughts of equality. Wanted to be one of the commoners. Said that nobody should have servants. I hoped that he would come to reason. He should‚Äôve listened to me! Commoners will bite of your arm if you offer them a hand. Now he is dead... Well at least I can use his life insurance money to remarry and bury my sorrow in diamonds.",
+								/*weird[2]*/    "The shipment of the dresses i bought last week haven‚Äôt arrived yet. I need to write them a stern letter if they don‚Äôt arrive soon.",
 								/*susp[3]*/     "Surely it was one of the dirty servants. He was way too nice to them, paid them way too much too. They probably wanted to extort them for even more money.",
-								/*others[4]*/   "I know that the gardner wasnít in the garden. He getís me some fruit of the trees usually, but I didnít see him today."};
+								/*others[4]*/   "I know that the gardner wasn‚Äôt in the garden. He get‚Äôs me some fruit of the trees usually, but I didn‚Äôt see him today."};
 					//Zusammenfassungen der lady
 					public static boolean[] ladyzsmf= {false,false,false,false,false};
 					public static String[] ladyzsmfaussagen = {"","","","",""};
@@ -218,11 +218,11 @@ implements SpeechletV2
 					public static String maidbeschr = "The maid is a shy, young and innocent girl who is satisfied with little. She is not conspicuous but if you look at her for a long time you will notice that she is beautiful. As a prince, you could easily fall for that, don't you think?";
 					public static String maidaussagen[]=
 							//where[0],relation[1],weird[2],susp[3],others[4]
-							/*where[0]*/	{"I was polishing the silver cutlery together with james all day long. He can tell that we did that too! Donít you dare think I was the murderer of my beloved Lord. ",
-							/*relation[1]*/ "I...WeÖ We were good friends. We grew up together, i guess. He is one of the most important persons I have...I had.",
-							/*weird[2]*/    "I don't know.. I don't know.. Iím sorry I have to go nowÖ",
-							/*susp[3]*/     "I can not think of one person in this whole house who would do this, ever! I mean, James did not really like him but he was polishing the silver cutlery with me, so heís out. He wasnít best friends with my father but he would have never done it! NEVER!",
-							/*others[4]*/	"I only know me and James were polishingÖ The cook was cooking all day, for sure. Otherwise I donít know what everyone does the whole day, why should I?"};
+							/*where[0]*/	{"I was polishing the silver cutlery together with james all day long. He can tell that we did that too! Don‚Äôt you dare think I was the murderer of my beloved Lord. ",
+							/*relation[1]*/ "I...We‚Ä¶ We were good friends. We grew up together, i guess. He is one of the most important persons I have...I had.",
+							/*weird[2]*/    "I don't know.. I don't know.. I‚Äôm sorry I have to go now‚Ä¶",
+							/*susp[3]*/     "I can not think of one person in this whole house who would do this, ever! I mean, James did not really like him but he was polishing the silver cutlery with me, so he‚Äôs out. He wasn‚Äôt best friends with my father but he would have never done it! NEVER!",
+							/*others[4]*/	"I only know me and James were polishing‚Ä¶ The cook was cooking all day, for sure. Otherwise I don‚Äôt know what everyone does the whole day, why should I?"};
 					//zusammenfassung von maid
 					public static boolean[] maidzsmf= {false,false,false,false,false};
 					public static String[] maidzsmfaussagen = {"","","","",""};	
@@ -236,30 +236,30 @@ implements SpeechletV2
 				public static String escaped="And even worse: I fear that the real murderer has escaped.";
 				public static String newtry="Do you want another try?";
 		//watson
-				public static String watsonbegr¸ﬂung="How can I help you? I can give you a short summary and I could tell you which rooms you have not yet entered.";
+				public static String watsonbegr√º√üung="How can I help you? I can give you a short summary and I could tell you which rooms you have not yet entered.";
 				public static String summary="Ok, here is a short summary.";
 				//WoWarIch
 					public static String nochbesuchen = "You have not visited the following rooms yet: ";
 					public static String schonbesucht = "You have already visited the following rooms:";
-					public static String[] roomswwi = {" Entrancehall "," Library "," Garden "," Servantwing "," Servantbedroom "," Kitchen "," Lounge "," Bedchamber "}; //Strings die angef¸gt werden
-					public static boolean r‰umebesucht []= {entrancehallbesucht,librarybesucht,gardenbesucht,servantwingbesucht,servantbedroombesucht,kitchenbesucht,loungebesucht,bedchamberbesucht}; //array mit allen boleans
+					public static String[] roomswwi = {" Entrancehall "," Library "," Garden "," Servantwing "," Servantbedroom "," Kitchen "," Lounge "," Bedchamber "}; //Strings die angef√ºgt werden
+					public static boolean r√§umebesucht []= {entrancehallbesucht,librarybesucht,gardenbesucht,servantwingbesucht,servantbedroombesucht,kitchenbesucht,loungebesucht,bedchamberbesucht}; //array mit allen boleans
 
 			
 			
 			
 	//RegEX-----------------------------------------------------------------------------------------------------------------
 			//universell
-				public static String solve= "(i would like to |i want to )?(solve|answer|solution|i know who)(is)?( the mystery|the game|the murder)?";
+				public static String solve= "(i would like to |i want to )?(solve|answer|solution|i know who)( is)?( the mystery|the game|the murder)?";
 				public static String watson = "(i would like to |i want to )?(ask )?watson( please)?";
 			//zeuge
 				public static String where = "where(have you been )?(when the |during the )?(crime was committed |murder was committed |the murder happened |the crime happened )?";
-				public static String relationship ="(what was your |did you )?(relationship|like the|hate the|love the)( )?(with)?(lord |the victim )?";
-				public static String weird ="(did something seem )?(weird|see)( )?(to you )?(lately |recently )?";
-				public static String suspicion="^(do you have any )?(suspicion|idea|murderer|who killed|who commited)( )?(the lord|the crime)?$";
-				public static String others="(could you imagine )?other(s)?( committing )?(such a )?(crime)?";
+				public static String relationship ="(what was your |did you )?(relationship|like the|hate the|love the)( with)?( the lord| the victim| lord| victim)?";
+				public static String weird ="(did something seem )?(weird|strange)( to you)?( lately| recently)?";
+				public static String suspicion="(do you have any )?(suspicion|idea)( who could have| who)?( killed| committed)?( the lord| the crime)?";
+				public static String others="(could you imagine )?(others|other|anyone|someone)( committing | killing )?(such a |a |the )?(crime|murder|lord|victim)?";
 				public static String goodbye="(no|goodbye|farewell|see you|leave)";
 				public static String examplequestions="(i would like to hear | i would like to listen )?(the |to )?example question(s)?";
-			//r‰ume
+			//r√§ume
 				public static String leave ="((i want to |i would like to |i choose the )?(leave|exit|third|last))|(go somewhere else)|(go to another (place|room))";
 				public static String search ="(i want to |i would like to | I choose the )?(search|look|second|middle)";
 				public static String whitness ="(i want to |i would like to |)?(ask|talk|question|speak|first)( to a| to the)?( whitness| victim| butler| maid| gardener| lady| lord| child| cook)?";
@@ -290,11 +290,11 @@ implements SpeechletV2
 	{
 		logger.info("onSessionStarted:start______________________________________________________________________________________-");
 		
-		//Nˆtiges
+		//N√∂tiges
 				userrequest="";	
-				text="<speak>"; //dies ist die Variable, die von speak gef¸llt und dann durch send() gesendet wird
+				text="<speak>"; //dies ist die Variable, die von speak gef√ºllt und dann durch send() gesendet wird
 				murderer="gardener";
-				logger.info("onSessionStarted:Nˆtiges Geladen");
+				logger.info("onSessionStarted:N√∂tiges Geladen");
 		//Zustand
 				aktuellerraum = " ";
 				aktuellerzeuge= " ";
@@ -317,12 +317,12 @@ implements SpeechletV2
 				inwatson=false;
 				inbefragung=false;
 				inraum=false;
-				logger.info("onSessionStarted:Zust‰nde Geladen");
+				logger.info("onSessionStarted:Zust√§nde Geladen");
 		//solve
 				versuche=0;
 				maxversuche=3;
 				logger.info("onSessionStarted:Solve Geladen");
-		//r‰ume
+		//r√§ume
 			//entryhall
 				entrancehallbesucht = false;
 			//library	
@@ -339,7 +339,7 @@ implements SpeechletV2
 				bedchamberbesucht = false;
 			//lounge	
 				loungebesucht = false;
-				logger.info("onSessionStarted:R‰ume Geladen");
+				logger.info("onSessionStarted:R√§ume Geladen");
 		//zeugen	
 			//butler
 				butlerbefragt=false;
@@ -364,11 +364,11 @@ implements SpeechletV2
 	{
 		logger.info("OnLaunch: start");
 		
-		//Nˆtiges
+		//N√∂tiges
 		userrequest="";	
-		text="<speak>"; //dies ist die Variable, die von speak gef¸llt und dann durch send() gesendet wird
+		text="<speak>"; //dies ist die Variable, die von speak gef√ºllt und dann durch send() gesendet wird
 		murderer="gardener";
-		logger.info("onSessionStarted:Nˆtiges Geladen");
+		logger.info("onSessionStarted:N√∂tiges Geladen");
 //Zustand
 		aktuellerraum = " ";
 		aktuellerzeuge= " ";
@@ -391,12 +391,12 @@ implements SpeechletV2
 		inwatson=false;
 		inbefragung=false;
 		inraum=false;
-		logger.info("onSessionStarted:Zust‰nde Geladen");
+		logger.info("onSessionStarted:Zust√§nde Geladen");
 //solve
 		versuche=0;
 		maxversuche=3;
 		logger.info("onSessionStarted:Solve Geladen");
-//r‰ume
+//r√§ume
 	//entryhall
 		entrancehallbesucht = false;
 	//library	
@@ -413,7 +413,7 @@ implements SpeechletV2
 		bedchamberbesucht = false;
 	//lounge	
 		loungebesucht = false;
-		logger.info("onSessionStarted:R‰ume Geladen");
+		logger.info("onSessionStarted:R√§ume Geladen");
 //zeugen	
 	//butler
 		butlerbefragt=false;
@@ -468,7 +468,7 @@ implements SpeechletV2
 			raum(aktuellerraum, raumzeit);
 		}
 		else {
-			logger.info("onIntent(): Probleme den richtigen Zustand auszuw‰hlen." +intutorial +" "+inbefragung+" "+inraum+" "+insolve+" "+inwatson);
+			logger.info("onIntent(): Probleme den richtigen Zustand auszuw√§hlen." +intutorial +" "+inbefragung+" "+inraum+" "+insolve+" "+inwatson);
 		}
 		return sende();}
 
@@ -485,7 +485,7 @@ implements SpeechletV2
 			}
 	
 	//Ausgabe---------------------------------------------------------------------------------------------------------------------------------------
-		//sende() sorgt daf¸r, dass Alexa die variable text ausspricht
+		//sende() sorgt daf√ºr, dass Alexa die variable text ausspricht
 			public static SpeechletResponse sende() {
 				logger.info("sende(): start");
 				//logger.info("send() wurde gestartet");
@@ -494,7 +494,7 @@ implements SpeechletV2
 				logger.info("Der gesendete Text lautet:"+text);
 				speech.setSsml(text);
 				text="<speak>";
-				//logger.info("text wurde zur¸ckgesetzt auf:"+text);
+				//logger.info("text wurde zur√ºckgesetzt auf:"+text);
 				// reprompt after 8 seconds
 				SsmlOutputSpeech repromptSpeech = new SsmlOutputSpeech();
 				repromptSpeech.setSsml("<speak><emphasis level=\"strong\">Hey!</emphasis> Bist du noch da?</speak>");
@@ -507,11 +507,11 @@ implements SpeechletV2
 				return SpeechletResponse.newAskResponse(speech, rep);
 			};
 			
-		//speak	ver‰ndert den String text, welcher von sende() zu einer ssml verarbeitet und versendet wird. So kˆnnen cerschiedene Leute hintereinander sprechen
+		//speak	ver√§ndert den String text, welcher von sende() zu einer ssml verarbeitet und versendet wird. So k√∂nnen cerschiedene Leute hintereinander sprechen
 			public static void speak(String sentence, String name) {
 				logger.info("speak("+sentence+","+name+"): start");
 				logger.info(name+": "+sentence);
-				//logger.info("speak("+sentence+","+name+"): w‰hle Person");
+				//logger.info("speak("+sentence+","+name+"): w√§hle Person");
 				switch(name){ 
 				case "narrator": 
 					//logger.info("speak("+sentence+","+name+"): narrator");
@@ -545,13 +545,13 @@ implements SpeechletV2
 					text=text+"<voice name=\"Justin\">" + sentence + "</voice>";
 					break;
 				case "lady": 
-					//logger.info("speak("+sentence+","+name+"): w‰hle lady");
+					//logger.info("speak("+sentence+","+name+"): w√§hle lady");
 					text=text+"<voice name=\"Amy\">" + sentence + "</voice>";
 					break;
 				default:
 					//logger.info("speak("+sentence+","+name+"): default");
 					text=text+"<voice name=\"Matthew\"> "+ sentence + "</voice>";
-					//logger.info("text enth‰lt jetzt: "+text);
+					//logger.info("text enth√§lt jetzt: "+text);
 				}
 				logger.info("speak("+sentence+","+name+"): ende");
 
@@ -661,10 +661,10 @@ implements SpeechletV2
 				logger.info("pardon("+name+","+ort+"): ende");
 				return;}	
 	
-	//tutorial() sorgt f¸r das tutorial
+	//tutorial() sorgt f√ºr das tutorial
 		public static void tutorial(int zeit) {
 			logger.info("tutorial("+zeit+"): start");
-			logger.info("tutorial("+zeit+"): w‰hle Zeit");
+			logger.info("tutorial("+zeit+"): w√§hle Zeit");
 			switch(zeit) {
 			case 0:
 				sound("rain");
@@ -742,14 +742,14 @@ implements SpeechletV2
 			return;}
 
 
-	//Zust‰nde-----------------------------------------------------------------------------------------------------------------------------------------
-		//solve() ist die funktion zum auflˆsen des Falles
+	//Zust√§nde-----------------------------------------------------------------------------------------------------------------------------------------
+		//solve() ist die funktion zum aufl√∂sen des Falles
 			public static void solve(int zeit) {
 				logger.info("solve("+zeit+"):"+"gestartet");
-				logger.info("solve("+zeit+"):"+"w‰hle Zeit");
+				logger.info("solve("+zeit+"):"+"w√§hle Zeit");
 				switch(zeit) {
 				case 0://bist du bereit zu solven?
-					logger.info("Der Spieler mˆchte Solven");
+					logger.info("Der Spieler m√∂chte Solven");
 					insolve=true;
 					speak(readytosolve,"watson");
 					solvezeit=1;
@@ -773,7 +773,7 @@ implements SpeechletV2
 				case 2://Richtig oder Falsch
 					logger.info("solve("+zeit+"):"+"Zeit=2");
 					String verdacht=who(userrequest);
-					logger.info(verdacht+" wurde verd‰chtigt der T‰ter gewesen zu sein");
+					logger.info(verdacht+" wurde verd√§chtigt der T√§ter gewesen zu sein");
 					if (verdacht==murderer){//richtiger verdacht
 						speak(sucess, "watson");
 						speak(motiv, murderer);
@@ -803,12 +803,12 @@ implements SpeechletV2
 		//Die Funktion, die Watson zum leben erweckt
 			public static void watson(int zeit) {
 				logger.info("watson("+zeit+"):"+"start");
-				logger.info("watson("+zeit+"):"+"w‰hle Zeit");
+				logger.info("watson("+zeit+"):"+"w√§hle Zeit");
 				switch(zeit) {
-					case 0://Begr¸ﬂung
+					case 0://Begr√º√üung
 						inwatson=true;
 						logger.info("watson("+zeit+"):"+"Zeit=1");
-						speak(watsonbegr¸ﬂung,"watson");
+						speak(watsonbegr√º√üung,"watson");
 						watsonzeit=1;
 						break;
 					case 1://frageauswahl
@@ -859,7 +859,7 @@ implements SpeechletV2
 				inbefragung=true;
 				
 				
-				logger.info("zeuge("+name+","+zeit+"):"+"W‰hle Zeitpunkt");
+				logger.info("zeuge("+name+","+zeit+"):"+"W√§hle Zeitpunkt");
 				switch(zeit){
 				case 0:
 					inbefragung=true;
@@ -918,7 +918,7 @@ implements SpeechletV2
 					break;
 				case 1://Zeuge wurde beschrieben und es wurde gerade gefragt, welche Frage gestellt werden soll
 					int FRAGE=RecUI(userrequest, 2);
-					logger.info("zeuge("+name+","+zeit+"):"+"W‰hle Frage");
+					logger.info("zeuge("+name+","+zeit+"):"+"W√§hle Frage");
 					switch (FRAGE) {
 						case 1://examplequestions
 							logger.info("zeuge("+name+","+zeit+"):"+"Frage=1");
@@ -1049,7 +1049,7 @@ implements SpeechletV2
 							return;
 						case 8://solve
 							logger.info("zeuge("+name+","+zeit+"):"+"Frage=8");
-							logger.info("Der Spieler mˆchte Solven");
+							logger.info("Der Spieler m√∂chte Solven");
 							solve(0);
 							insolve=true;
 							
@@ -1072,16 +1072,16 @@ implements SpeechletV2
 			return;}
 			
 			
-		//raum() ist eine Funktion mit der man R‰ume besuchen kann.		
+		//raum() ist eine Funktion mit der man R√§ume besuchen kann.		
 			public static void raum(String raum, int zeit) {
 				logger.info("raum("+raum+","+zeit+"):"+"startet");
-				logger.info("raum("+raum+","+zeit+"):"+"w‰hle Zeit");
+				logger.info("raum("+raum+","+zeit+"):"+"w√§hle Zeit");
 				switch(zeit) {
 				case 0:
 					inraum=true;
 					aktuellerraum=raum;
-					//stellt die richtigen Raumdaten zur verf¸gen, beschreibt r‰ume, falls nˆtig
-					logger.info("raum("+raum+","+zeit+"):"+"w‰hlt Raum");
+					//stellt die richtigen Raumdaten zur verf√ºgen, beschreibt r√§ume, falls n√∂tig
+					logger.info("raum("+raum+","+zeit+"):"+"w√§hlt Raum");
 					switch (raum) {
 							case "library":
 								logger.info("raum("+raum+","+zeit+"):"+"library");
@@ -1164,14 +1164,14 @@ implements SpeechletV2
 								break;
 								
 							}
-					speak(room[1], "watson");//erneute beschreibung der T‰tigkeiten im Raum
+					speak(room[1], "watson");//erneute beschreibung der T√§tigkeiten im Raum
 					raumzeit=1;
 					break;
 					
 				case 1:
 					logger.info("raum("+raum+","+zeit+"):"+"Zeit=1");
 					int wastun=RecUI(userrequest,1);
-					logger.info("raum("+raum+","+zeit+"):"+"w‰hle aktion");
+					logger.info("raum("+raum+","+zeit+"):"+"w√§hle aktion");
 					switch (wastun) {
 						case 1://watson
 							logger.info("raum("+raum+","+zeit+"):"+"wastun=1");
@@ -1196,7 +1196,7 @@ implements SpeechletV2
 							logger.info(raum + " wurde verlassen");
 							speak(room[3],"watson");
 							raumzeit=2;
-							//TO DO: Extra case f¸r das verlassen des raumes anlegen
+							//TO DO: Extra case f√ºr das verlassen des raumes anlegen
 							break;
 						case 5:
 							logger.info("raum("+raum+","+zeit+"):"+"wastun=5");
@@ -1227,7 +1227,7 @@ implements SpeechletV2
 	
 			
 	//Willenserkennung---------------------------------------------------------------------------------------------------------------------------------
-		//RecUI erkennt die Benutzer‰uﬂerung
+		//RecUI erkennt die Benutzer√§u√üerung
 			public static int RecUI(String UserRequest, int ort) { //1=Raum, 2=Zeuge, 3=Solve, 4=Leave, 5=yesno, 6=tutorial 7=watson 8=who
 				logger.info("RecUI("+UserRequest+","+ort+"):start");
 				UserRequest = UserRequest.toLowerCase().trim();
@@ -1254,10 +1254,10 @@ implements SpeechletV2
 						logger.info("Der Zeuge wird befragt.");
 						return 3;} 
 					else if (m14.find()) {
-						logger.info("Der Spieler verl‰sst den raum");
+						logger.info("Der Spieler verl√§sst den raum");
 						return 4;} 
 					else if (m15.find()) {
-						logger.info("Der Spieler mˆchte Solven");
+						logger.info("Der Spieler m√∂chte Solven");
 						solvezeit=1;
 						insolve=true;
 						speak(readytosolve,"watson");
@@ -1300,10 +1300,10 @@ implements SpeechletV2
 							logger.info("Bei der Zeugenbefragung wurde nach Beziehungen gefragt");
 							return 3;} 
 						else if (m24.find()) {
-							logger.info("Bei der Zeugenbefragung wurde nach Merkw¸rdigem gefragt");
+							logger.info("Bei der Zeugenbefragung wurde nach Merkw√ºrdigem gefragt");
 							return 4;} 
 						else if (m25.find()) {
-							logger.info("Bei der Zeugenbefragung wurde nach Verd‰chtigungen gefragt");
+							logger.info("Bei der Zeugenbefragung wurde nach Verd√§chtigungen gefragt");
 							return 5;}
 						else if (m26.find()) {
 							logger.info("Bei der Zeugenbefragung wurde nach den Anderen gefragt");
@@ -1321,7 +1321,7 @@ implements SpeechletV2
 							logger.info("RecUI:case 2: Kein RecState wurde erkannt: "+UserRequest);
 							return 1400;}
 				case 3:
-					//hier kommen all die Dinge rein, die erkannt werden sollen, wenn man solven mˆchte
+					//hier kommen all die Dinge rein, die erkannt werden sollen, wenn man solven m√∂chte
 					//Benennung der Patterns: z.B. p15=Case 1, Pattern5
 					Pattern p31 = Pattern.compile(solvebutler);
 					Pattern p32 = Pattern.compile(solvechild);
@@ -1375,7 +1375,7 @@ implements SpeechletV2
 						Pattern p4 = Pattern.compile(raumregex[i]);
 						Matcher m4 = p4.matcher(UserRequest);
 						if (m4.find()) {
-							logger.info("Der User mˆchte in diesen Raum gehen: "+raumregex[i]);
+							logger.info("Der User m√∂chte in diesen Raum gehen: "+raumregex[i]);
 							return i;
 						}
 					}
@@ -1399,13 +1399,13 @@ implements SpeechletV2
 						logger.info("RecUI:case 5: Kein RecState wurde erkannt: "+UserRequest);
 					return 1400;}
 					
-				case 6://tutorial-muss noch ¸berarbeitet werden
+				case 6://tutorial-muss noch √ºberarbeitet werden
 					Pattern p61 = Pattern.compile(yes);
 					
 					Matcher m61 = p61.matcher(UserRequest);
 					
 					if (m61.find()) {
-						logger.info("Der User mˆchte bricht solving ab");
+						logger.info("Der User m√∂chte bricht solving ab");
 						return 1;}
 					else { 
 						logger.info("RecUI:case 5: Kein RecState wurde erkannt: "+UserRequest);                             
@@ -1494,14 +1494,14 @@ implements SpeechletV2
 			}
 
 	//Wissensbasis---------------------------------------------------------------------------------------------------------------------------------
-		//wwi() weiﬂ wo wir schon waren und wo nicht
+		//wwi() wei√ü wo wir schon waren und wo nicht
 			public static String[] wwi() {//Funktion um zu erkennenn in welchem Raum ich war
 				logger.info("wwi():"+"start");
 				int i;
-				for (i = 0; i < r‰umebesucht.length; i++) { // durch alle booleans durchschalten
+				for (i = 0; i < r√§umebesucht.length; i++) { // durch alle booleans durchschalten
 					logger.info("wwi():"+"raum="+i);
-					if (r‰umebesucht[i]==false) { //wenn man noch nicht in x war dann..
-						logger.info("wwi():"+"r‰umebesucht[i]==false");
+					if (r√§umebesucht[i]==false) { //wenn man noch nicht in x war dann..
+						logger.info("wwi():"+"r√§umebesucht[i]==false");
 						if (entrancehallbesucht) {
 							nochbesuchen = nochbesuchen+roomswwi[0];}
 						if (librarybesucht) {
@@ -1520,8 +1520,8 @@ implements SpeechletV2
 							nochbesuchen = nochbesuchen+roomswwi[7];}
 	
 									
-						} else if (r‰umebesucht[i]==true) { //wenn man schon in y war dann..
-						logger.info("wwi():"+"r‰umebesucht[i]==true");
+						} else if (r√§umebesucht[i]==true) { //wenn man schon in y war dann..
+						logger.info("wwi():"+"r√§umebesucht[i]==true");
 						if (entrancehallbesucht) {
 							schonbesucht = schonbesucht+roomswwi[0];}
 						if (librarybesucht) {
@@ -1583,7 +1583,7 @@ implements SpeechletV2
 	
 	
 	//Ende--------------------------------------------------------------------------------------------------------------------------		
-		//onSessionEnded() ist das Zeichen f¸r das ende der Session	
+		//onSessionEnded() ist das Zeichen f√ºr das ende der Session	
 			@Override
 			public void onSessionEnded(SpeechletRequestEnvelope<SessionEndedRequest> requestEnvelope) {
 				logger.info("OnSessionEnded: start");
