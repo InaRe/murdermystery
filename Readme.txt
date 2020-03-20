@@ -1,6 +1,6 @@
 Hallo! Sie lesen diesen Text, also haben sie die ReadMe schon gefunden. 
 
-Schritt 1 zum Erfolgreichen Lösen eines Kriminalfalls ist geschafft!
+Schritt 1 zum erfolgreichen Lösen eines Kriminalfalls ist geschafft!
 Kommen wir zu weniger erfolgreichen Dingen: Bekannte Bugs, die wir leider nicht lösen konnten.
 - Der Skill beendet leider nicht automatisch nach dem Lösen/nicht Lösen des Skills. 
 - Einige Wörter (z.B. stop/goodbye) sollten im Spiel nicht verwendet werden, da dies Alexa-Codewörter sind und von Alexa, statt des Skills aufgefangen werden.
